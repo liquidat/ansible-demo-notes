@@ -1,0 +1,187 @@
+= Aim
+To show Ansible's features and possibilities including Tower.
+
+= Target audience
+Technical people who want to see Ansible Tower in action with certain examples.
+
+= Setup
+- tower server
+- two RHEL nodes
+- two Solaris nodes
+- a Suse node
+- a Windows Server 2008 R2
+
+= concepts
+- Ansible is about automation - and thus about saving time
+- Ansible is simple - integrates seamless into existing infrastructure
+- Ansible is engine: triggered via command line or via web interface/API
+- Ansible is language of "playbooks": set of "tasks", working steps which need to be run
+- tasks can be either generic cli commands or simplified by predefined modules with parameters
+- Ansible does not require a client, uses present operating system remote management technology
+- thus Ansible itself runs on any machine, configuring others
+- push mechanism, and login must work
+- Tower adds control and delegation: single place for playbooks & can separate playbooks from necessary login rights
+- Tower also central place for playbook results: what was done where, and did it work?
+
+= Start: command line
+- just the command line
+- think of SSH on steroids
+- inventory: can be static file or executed script; think of existing CMDB or Satellite or anything
+- here: static
+- show inventory: clients, groups, additional options; highlight connection type
+- ping Linux clients
+- ping windows machine: ping and win_ping
+- raw echo command on all: ansible all -m raw -a "ver || uname -a"
+- using unix only module: ansible unix -m user -a "name=rwolters state=present"
+- where to get info about module parameters: ansible-doc yum, and ansible-doc -s yum
+=> Ansible can contact multiple nodes at the same time
+=> commands can already be distribution agnostic, even OS agnostic
+=> use case: instant execution of single tasks across server landscapes
+=> example: get state of all running servers right away
+=> example: deploy OpenSSL update on all relevant machines right away
+=> can save time already compared to plain ssh or even dsh
+=> missing yet: stacks of tasks, describing entire setups
+
+= Playbooks
+- open ~/Gits/github/ansible-demo-apache-simple, apache-setup.yml
+- highlight hosts, sudo/become
+- show that tasks are stacked, are executed in order
+- go through tasks, highlight different modules
+- mention: tasks can be serialized to be only applied to sets of a specific group (load balancers, etc.)
+- highlight conditionals, mention variables
+=> so far: tasks can be stacked
+=> playbooks script automation
+=> can be run on demand, multiple times
+=> can save even more time compared to the need to write scripts yourself
+=> But what are variables, where do they come from?
+
+= interlude: variables
+- variables can be used to replace values in playbooks, but also in file templates
+- Where to get them? Either manually defined, or from the machine.
+- show setup command for single host
+- show filter
+- highlight ansible_os_family
+- show another, static source for variables: vars file
+- back to playbook
+=> variables are a great way to gain more flexibility
+=> many are predefined, manual addition possible
+=> manual either in playbooks, inventory, local on the machine, or via files
+=> variables from other machines can also be accessed
+=> variables make playbooks much more re-usable, saves even more time
+
+= Playbooks
+- link to variables
+- mention variable inclusion, again variable
+- execute playbook
+- highlight the skipping due to conditionals
+- compare to service task without skips - no conditionals!
+- execute destroy playbook
+- show different playbook, oraclejdk-setup
+- highlight include statement
+- show rhel playbook, highlight generic approach
+- can distribute any kind of software, not only packaged
+- show windows playbook, highlight raw installer with options
+- show windows destroy - highlight scripting and template
+- head to logs - show log entries, each module is executed once
+- show handlers, explain links/connections with tasks
+- verify correct playbook with ansible-lint
+=> multi OS, multi host, multi distribution
+=> tasks can not only be stacked, but also grouped
+=> in combination with variables very flexible
+=> templates add another level - either for configuration files or even for scripts
+=> entire setups can be described in Playbooks
+=> use case: complex tasks, especially orchestration of interdependent servers
+=> example: access LB, deactivate host, access monitoring, deactivate host, access host, stop service, update software, start service, check log files, activate host in monitoring, activate in LB
+=> can save time by automating even complex interconnected tasks, regular or not
+=> missing yet: not central place, no tracking what was executed when and by whom
+
+= Tower, basics
+- show interface
+- explain concepts of projects (playbooks or sets of playbooks), show imported playbooks and projects
+- explain inventories, show imported inventories; can be groups of groups; can also be connected to online services or generic scripts
+- job templates assign actual playbooks to specific inventories: ready to be executed when needed
+- when executed, a job comes up, the job has the results
+- execute jobs, show results
+- highlight multiple plays in one job, show executing information
+- click through plays, highlight changing details
+- show cli output
+- back to list of jobs, possibility of tracking
+- show scheduling in job templates
+- also show facts of different machines via the inventory, highlight that this is difference for Enterprise
+- show execution of generic modules in inventory
+=> web interface
+=> central place for all tasks, able to verify and document what was done and when
+=> can perform automation on its own (scheduling)
+=> saves time via central, reusable place for all work
+=> missing yet: Playbooks still require user to have rights on target machines; how to separate?
+
+= Tower, advanced
+- show setup module: organizations, teams, users
+- show idea of credentials: cannot be looked up, stored in AES 128 in database
+- highlight users: dduck and mmaus, belonging to different groups
+- show various rights across teams: on inventories, on tasks, with and without module execution
+- login as dduck and mmaus - compare to admin login
+- highlight that credentials cannot be looked up
+- execute task as dduck - show results
+- show portal mode
+- mention dry runs
+=> separation of rights on machines and rights to execute playbooks is now given
+=> reliable tracking of who is allowed to execute what, and what was executed when by whom
+=> automation can now include teams and users without privileged access to machines
+=> use case: provide playbooks to be executed by developers, but without handing out login data
+=> example: destroy and re-setup development environment: access build server, publish correct branch, access dev machines, download app from build server, stop old app, remove, deploy new, start, run deployment tests
+=> example: clean redis-cache once in a while
+=> saves time, since self service of automation tasks now possible
+
+= Break out session: roles
+- tasks just describe what to do to get to some state - roles describe what needs to be there to have a state
+- more abstract; idea is to make them shareable: everyone needs a web server, a database
+- everything which describes a role: templates, tasks, variables, default values, etc.
+- of course strongly depends on the qualities of the role writer
+- there are very abstract, high quality roles out there, even OS agnostic
+- ansible galaxy has community repository of roles
+- use case: describe environments via re-usable roles
+=> modular approach of assigning tasks to machines
+=> still follows the Ansible way, still easy to write, adopt
+=> use case: standardized components in the data center to build apps (always MySQL, always nginx, etc.)
+=> example: Wordpress server has multiple roles: database, web server, scripting language tuning
+=> save time by reusing work of yourself and others
+
+= Break out session: push vs pull
+- push vs pull essentially depends on the requirements
+- to keep in mind: many CM systems require a message bus these days...
+- where pull is fixed, and only possibility: clone GIT repo on each machine, execute ansible locally
+- there are modules and documentation in place
+=> Ansible pull is possible, but requires some extra work
+=> saves time since local network and policies do not have to be changed
+
+= Break out session: trouble shooting
+- use blocks or ignore_errors and conditionals
+- use debug msg to output variables
+- do rollback (or for example shutdown) if needed
+- -vvv on command line for ssh debugging
+- --step
+- --check
+- --diff
+
+= Break out session: tags
+- tags vs conditionals
+- limiting to certain tags
+- --skip-tags
+
+= Advanced: roles
+- go through concept of many roles, one profile
+- show apache role: ~/Gits/github/ansible-role-apache
+- discuss features of a role: tasks var defaults  handlers  meta  templates  tests
+
+= Advanced: CLI details
+- --list-tags
+- --list-hosts
+- --syntax-check
+- --list-tasks
+
+= Lessons learned
+- don't use Windows Server 2008 R2, use 2012 (WinRM and Powershell update)
+- import of locally hosted playbooks in Tower: try once, fail often; worst case, copy working ones and change them
+- dry runs might be problematic in Windows; must be supported by module!
+- names for servers should not be stupid or generic or fancy, but plain describing ;-)
