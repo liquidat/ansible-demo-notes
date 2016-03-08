@@ -31,7 +31,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - show inventory: clients, groups, additional options; highlight connection type
 - ping Linux clients
 - ping windows machine: ping and win_ping
-- raw echo command on all: ansible all -m raw -a "ver || uname -a"
+- raw echo command on all: ansible all -m raw -a "uname -a;get-host;echo 0"
 - using unix only module: ansible unix -m user -a "name=rwolters state=present"
 - where to get info about module parameters: ansible-doc yum, and ansible-doc -s yum
 => Ansible can contact multiple nodes at the same time
@@ -44,7 +44,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 
 = Playbooks
 - open ~/Gits/github/ansible-demo-apache-simple, apache-setup.yml
-- highlight hosts, sudo/become
+- highlight hosts, become
 - show that tasks are stacked, are executed in order
 - go through tasks, highlight different modules
 - mention: tasks can be serialized to be only applied to sets of a specific group (load balancers, etc.)
