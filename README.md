@@ -13,8 +13,11 @@ Technical people who want to see Ansible Tower in action with certain examples.
 ## concepts
 - Ansible is about automation - and thus about saving time
 - Ansible is simple - integrates seamless into existing infrastructure
+- Ansible is powerful - from system management to application development
+- Ansible is agentless - no further software needed
 - Ansible is engine: triggered via command line or via web interface/API
 - Ansible is language of "playbooks": set of "tasks", working steps which need to be run
+- Ansible is enterprise framework: Tower can deliver RBAC, central web interface, etc.
 - tasks can be either generic cli commands or simplified by predefined modules with parameters
 - Ansible does not require a client, uses present operating system remote management technology
 - thus Ansible itself runs on any machine, configuring others
