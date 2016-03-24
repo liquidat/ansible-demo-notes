@@ -33,13 +33,13 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - raw echo command on all: `ansible all -m raw -a "uname -a;get-host;echo 0"`
 - using unix only module: `ansible unix -m user -a "name=rwolters state=present"`
 - where to get info about module parameters: `ansible-doc yum`, and `ansible-doc -s yum`
-- => Ansible can contact multiple nodes at the same time
-- => commands can already be distribution agnostic, even OS agnostic
-- => use case: instant execution of single tasks across server landscapes
-- => example: get state of all running servers right away
-- => example: deploy OpenSSL update on all relevant machines right away
-- => can save time already compared to plain ssh or even dsh
-- => missing yet: stacks of tasks, describing entire setups
+- :white_check_mark: Ansible can contact multiple nodes at the same time
+- :white_check_mark: commands can already be distribution agnostic, even OS agnostic
+- :white_check_mark: use case: instant execution of single tasks across server landscapes
+- :white_check_mark: example: get state of all running servers right away
+- :white_check_mark: example: deploy OpenSSL update on all relevant machines right away
+- :white_check_mark: can save time already compared to plain ssh or even dsh
+- :white_check_mark: missing yet: stacks of tasks, describing entire setups
 
 ## Playbooks
 - open ~/Gits/github/ansible-demo-apache-simple, apache-setup.yml
@@ -48,11 +48,11 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - go through tasks, highlight different modules
 - mention: tasks can be serialized to be only applied to sets of a specific group (load balancers, etc.)
 - highlight conditionals, mention variables
-- => so far: tasks can be stacked
-- => playbooks script automation
-- => can be run on demand, multiple times
-- => can save even more time compared to the need to write scripts yourself
-- => But what are variables, where do they come from?
+- :white_check_mark: so far: tasks can be stacked
+- :white_check_mark: playbooks script automation
+- :white_check_mark: can be run on demand, multiple times
+- :white_check_mark: can save even more time compared to the need to write scripts yourself
+- :white_check_mark: But what are variables, where do they come from?
 
 ## interlude: variables
 - variables can be used to replace values in playbooks, but also in file templates
@@ -62,11 +62,11 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - highlight ansible_os_family
 - show another, static source for variables: vars file
 - back to playbook
-- => variables are a great way to gain more flexibility
-- => many are predefined, manual addition possible
-- => manual either in playbooks, inventory, local on the machine, or via files
-- => variables from other machines can also be accessed
-- => variables make playbooks much more re-usable, saves even more time
+- :white_check_mark: variables are a great way to gain more flexibility
+- :white_check_mark: many are predefined, manual addition possible
+- :white_check_mark: manual either in playbooks, inventory, local on the machine, or via files
+- :white_check_mark: variables from other machines can also be accessed
+- :white_check_mark: variables make playbooks much more re-usable, saves even more time
 
 ## Playbooks
 - link to variables
@@ -84,15 +84,15 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - head to logs - show log entries, each module is executed once
 - show handlers, explain links/connections with tasks
 - verify correct playbook with ansible-lint
-- => multi OS, multi host, multi distribution
-- => tasks can not only be stacked, but also grouped
-- => in combination with variables very flexible
-- => templates add another level - either for configuration files or even for scripts
-- => entire setups can be described in Playbooks
-- => use case: complex tasks, especially orchestration of interdependent servers
-- => example: access LB, deactivate host, access monitoring, deactivate host, access host, stop service, update software, start service, check log files, activate host in monitoring, activate in LB
-- => can save time by automating even complex interconnected tasks, regular or not
-- => missing yet: not central place, no tracking what was executed when and by whom
+- :white_check_mark: multi OS, multi host, multi distribution
+- :white_check_mark: tasks can not only be stacked, but also grouped
+- :white_check_mark: in combination with variables very flexible
+- :white_check_mark: templates add another level - either for configuration files or even for scripts
+- :white_check_mark: entire setups can be described in Playbooks
+- :white_check_mark: use case: complex tasks, especially orchestration of interdependent servers
+- :white_check_mark: example: access LB, deactivate host, access monitoring, deactivate host, access host, stop service, update software, start service, check log files, activate host in monitoring, activate in LB
+- :white_check_mark: can save time by automating even complex interconnected tasks, regular or not
+- :white_check_mark: missing yet: not central place, no tracking what was executed when and by whom
 
 ## Tower, basics
 - show interface
@@ -108,11 +108,11 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - show scheduling in job templates
 - also show facts of different machines via the inventory, highlight that this is difference for Enterprise
 - show execution of generic modules in inventory
-- => web interface
-- => central place for all tasks, able to verify and document what was done and when
-- => can perform automation on its own (scheduling)
-- => saves time via central, reusable place for all work
-- => missing yet: Playbooks still require user to have rights on target machines; how to separate?
+- :white_check_mark: web interface
+- :white_check_mark: central place for all tasks, able to verify and document what was done and when
+- :white_check_mark: can perform automation on its own (scheduling)
+- :white_check_mark: saves time via central, reusable place for all work
+- :white_check_mark: missing yet: Playbooks still require user to have rights on target machines; how to separate?
 
 ## Tower, advanced
 - show setup module: organizations, teams, users
@@ -124,13 +124,13 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - execute task as dduck - show results
 - show portal mode
 - mention dry runs
-- => separation of rights on machines and rights to execute playbooks is now given
-- => reliable tracking of who is allowed to execute what, and what was executed when by whom
-- => automation can now include teams and users without privileged access to machines
-- => use case: provide playbooks to be executed by developers, but without handing out login data
-- => example: destroy and re-setup development environment: access build server, publish correct branch, access dev - machines, download app from build server, stop old app, remove, deploy new, start, run deployment tests
-- => example: clean redis-cache once in a while
-- => saves time, since self service of automation tasks now possible
+- :white_check_mark: separation of rights on machines and rights to execute playbooks is now given
+- :white_check_mark: reliable tracking of who is allowed to execute what, and what was executed when by whom
+- :white_check_mark: automation can now include teams and users without privileged access to machines
+- :white_check_mark: use case: provide playbooks to be executed by developers, but without handing out login data
+- :white_check_mark: example: destroy and re-setup development environment: access build server, publish correct branch, access dev - machines, download app from build server, stop old app, remove, deploy new, start, run deployment tests
+- :white_check_mark: example: clean redis-cache once in a while
+- :white_check_mark: saves time, since self service of automation tasks now possible
 
 ## Break out sessions / advanced topics
 
@@ -142,19 +142,19 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - there are very abstract, high quality roles out there, even OS agnostic
 - ansible galaxy has community repository of roles
 - use case: describe environments via re-usable roles
-- => modular approach of assigning tasks to machines
-- => still follows the Ansible way, still easy to write, adopt
-- => use case: standardized components in the data center to build apps (always MySQL, always nginx, etc.)
-- => example: Wordpress server has multiple roles: database, web server, scripting language tuning
-- => save time by reusing work of yourself and others
+- :white_check_mark: modular approach of assigning tasks to machines
+- :white_check_mark: still follows the Ansible way, still easy to write, adopt
+- :white_check_mark: use case: standardized components in the data center to build apps (always MySQL, always nginx, etc.)
+- :white_check_mark: example: Wordpress server has multiple roles: database, web server, scripting language tuning
+- :white_check_mark: save time by reusing work of yourself and others
 
 ### push vs pull
 - push vs pull essentially depends on the requirements
 - to keep in mind: many CM systems require a message bus these days...
 - where pull is fixed, and only possibility: clone GIT repo on each machine, execute ansible locally
 - there are modules and documentation in place
-- => Ansible pull is possible, but requires some extra work
-- => saves time since local network and policies do not have to be changed
+- :white_check_mark: Ansible pull is possible, but requires some extra work
+- :white_check_mark: saves time since local network and policies do not have to be changed
 
 ### trouble shooting
 - use blocks or ignore_errors and conditionals
