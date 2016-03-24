@@ -115,10 +115,12 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :clapper: Trigger build on Jenkins, get build, copy to staging, deactivate in load balancer, pause in monitoring, stop service, remove old version, deploy new version, start service, run tests; then unpause monitoring, active in load balancer, send mail to team
 
 ## Tower, basics
+- :question: Do you know which automated scripts are run right now in your environment? When, and by whom?
 - show interface
 - explain concepts of projects (playbooks or sets of playbooks), show imported playbooks and projects
 - explain inventories, show imported inventories; can be groups of groups; can also be connected to online services or generic scripts
 - job templates assign actual playbooks to specific inventories: ready to be executed when needed
+- mention surveys and variable requests
 - when executed, a job comes up, the job has the results
 - execute jobs, show results
 - highlight multiple plays in one job, show executing information
@@ -137,6 +139,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :clapper: Users run network wide checks nightly from Tower, all can see results.
 
 ## Tower, advanced
+- :question: How can you run powerful scripts by people who know when to run them, without providing them too many rights?
 - show setup module: organizations, teams, users
 - show idea of credentials: cannot be looked up, stored in AES 128 in database
 - highlight users: dduck and mmaus, belonging to different groups
@@ -153,7 +156,8 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: example: destroy and re-setup development environment: access build server, publish correct branch, access dev - machines, download app from build server, stop old app, remove, deploy new, start, run deployment tests
 - :white_check_mark: example: clean redis-cache once in a while
 - :white_check_mark: saves time, since self service of automation tasks now possible
-- :clapper: Team development executes deployment script without having actual access rights to the target system.
+- :clapper: Team development executes cache clean script without having actual access rights to the target system.
+- :clapper: The facility manager executes the backup script weekly. ;)
 
 ## Break out sessions / advanced topics
 
@@ -208,4 +212,3 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - block, rescue, always
 - can be used to group sets of tasks
 - also error/exception handling
-- 
