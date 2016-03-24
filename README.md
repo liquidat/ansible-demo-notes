@@ -17,25 +17,30 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - Ansible is agentless - no further software needed
 - Ansible is engine: triggered via command line or via web interface/API
 - Ansible is language of "playbooks": set of "tasks", working steps which need to be run
-- Ansible is enterprise framework: Tower can deliver RBAC, central web interface, etc.
-- tasks can be either generic cli commands or simplified by predefined modules with parameters
+- Ansible is enterprise framework: Tower can deliver RBAC, single centralized place, user friendly GUI, shows results
+- tasks can be either generic cli commands
+- or simplified by parametrized modules
 - Ansible does not require a client, uses present operating system remote management technology
-- thus Ansible itself runs on any machine, configuring others
+- thus Ansible itself runs from any machine, like an admin laptop, configuring others
 - push mechanism, and login must work
-- Tower adds control and delegation: single place for playbooks & can separate playbooks from necessary login rights
-- Tower also central place for playbook results: what was done where, and did it work?
-- 
-## Start: command line
+
+## Questions :question:
+- What is your largest pain right now?
+- What takes most manual work?
+- What is not integrated with each other right now but seems simple to connect?
+
+## Start: command line [skip if presentation or forknowledge]
 - :question: Do you often access multiple machines via command line?
 - :question: Do you know dancing/dstributed shell?
 - just the command line - like SSH on steroids
-- access tomachines via inventory: can be static file or executed script; think of existing CMDB or Satellite or anything
+- access machines via inventory: can be static file or executed script; think of existing CMDB or Satellite or anything
 - here: static
 - show inventory: clients, groups, additional options; highlight connection type
-- easiest way to contact: ping a machine, shows that is alive - and works!
+- easiest way to contact: ping a machine, shows that is alive - and Ansible works!
 - ping Linux clients
 - ping windows machine: ping and win_ping
 - simple task via raw `ansible helium -m command -a "uname -a"`
+- this was direct command - now show parametrized modules
 - simple task via module `ansible helium -m yum -a "name=httpd state=present" -s`
 - complex task via simple module `ansible unix -m user -a "name=rwolters state=present"`
 - where to get info about module parameters: `ansible-doc yum`, and `ansible-doc -s yum`
@@ -47,25 +52,36 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: example: deploy OpenSSL update on all relevant machines right away
 - :white_check_mark: can save time already compared to plain ssh or even dsh
 - :white_check_mark: missing yet: stacks of tasks, describing entire setups
+- :clapper: Emergency update of all productive systems in controlled manner.
+- :clapper: Launch a statistics script on all database servers.
+- :clapper: Restart failed web daemon on development machines.
 
 ## Playbooks
-- :question: How to process sets of tasks?
-- :question: 
+- :question: Do you already write your own automation scripts?
+- :question: Take your average shell script - how long is it, how easy to read/understand?
+- :question: Can you use variables, from differenct sources?
 - open `~/Gits/github/ansible-demo-apache-simple`, `apache-setup.yml`
-- highlight hosts, become
+- highlight become
 - show that tasks are stacked, are executed in order
 - go through tasks, highlight different modules
 - mention: tasks can be serialized to be only applied to sets of a specific group (load balancers, etc.)
 - highlight conditionals, mention variables
-- :white_check_mark: so far: tasks can be stacked
+- execute playbook
+- highlight the skipping due to conditionals
+- :white_check_mark: easy to read
+- :white_check_mark: tasks can be stacked
 - :white_check_mark: playbooks script automation
 - :white_check_mark: can be run on demand, multiple times
 - :white_check_mark: can save even more time compared to the need to write scripts yourself
 - :white_check_mark: But what are variables, where do they come from?
 
-## interlude: variables
-- variables can be used to replace values in playbooks, but also in file templates
-- Where to get them? Either manually defined, or from the machine.
+## interlude: variables [skip if no time]
+- :question: How to map small differences between setups?
+- :question: Aspects about a system - where to get them from?
+- :question: External information stores - how to incorporate them?
+- variables can replace values in playbooks
+- or in file templates
+- either manually defined, or from the machine or from external sources
 - show setup command for single host
 - show filter
 - highlight `ansible_os_family`
@@ -78,14 +94,8 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: variables make playbooks much more re-usable, saves even more time
 
 ## Playbooks
-- link to variables
-- mention variable inclusion, again variable
-- execute playbook
-- highlight the skipping due to conditionals
-- compare to service task without skips - no conditionals!
-- execute destroy playbook
 - show different playbook, `oraclejdk-setup`
-- highlight include statement
+- highlight include statement, they can be stacked as well
 - show rhel playbook, highlight generic approach
 - can distribute any kind of software, not only packaged
 - show windows playbook, highlight raw installer with options
@@ -102,6 +112,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: example: access LB, deactivate host, access monitoring, deactivate host, access host, stop service, update software, start service, check log files, activate host in monitoring, activate in LB
 - :white_check_mark: can save time by automating even complex interconnected tasks, regular or not
 - :white_check_mark: missing yet: not central place, no tracking what was executed when and by whom
+- :clapper: Trigger build on Jenkins, get build, copy to staging, deactivate in load balancer, pause in monitoring, stop service, remove old version, deploy new version, start service, run tests; then unpause monitoring, active in load balancer, send mail to team
 
 ## Tower, basics
 - show interface
@@ -117,11 +128,13 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - show scheduling in job templates
 - also show facts of different machines via the inventory, highlight that this is difference for Enterprise
 - show execution of generic modules in inventory
-- :white_check_mark: web interface
+- :white_check_mark: web interface; REST API
 - :white_check_mark: central place for all tasks, able to verify and document what was done and when
 - :white_check_mark: can perform automation on its own (scheduling)
 - :white_check_mark: saves time via central, reusable place for all work
 - :white_check_mark: missing yet: Playbooks still require user to have rights on target machines; how to separate?
+- :clapper: When user commits code, Jenkins runs build, afterwards Tower is called via REST and software is deployed.
+- :clapper: Users run network wide checks nightly from Tower, all can see results.
 
 ## Tower, advanced
 - show setup module: organizations, teams, users
@@ -140,6 +153,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: example: destroy and re-setup development environment: access build server, publish correct branch, access dev - machines, download app from build server, stop old app, remove, deploy new, start, run deployment tests
 - :white_check_mark: example: clean redis-cache once in a while
 - :white_check_mark: saves time, since self service of automation tasks now possible
+- :clapper: Team development executes deployment script without having actual access rights to the target system.
 
 ## Break out sessions / advanced topics
 
