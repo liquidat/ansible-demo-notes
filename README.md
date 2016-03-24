@@ -23,16 +23,20 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - Tower also central place for playbook results: what was done where, and did it work?
 - 
 ## Start: command line
-- just the command line
-- think of SSH on steroids
-- inventory: can be static file or executed script; think of existing CMDB or Satellite or anything
+- :question: Do you often access multiple machines via command line?
+- :question: Do you know dancing/dstributed shell?
+- just the command line - like SSH on steroids
+- access tomachines via inventory: can be static file or executed script; think of existing CMDB or Satellite or anything
 - here: static
 - show inventory: clients, groups, additional options; highlight connection type
+- easiest way to contact: ping a machine, shows that is alive - and works!
 - ping Linux clients
 - ping windows machine: ping and win_ping
-- raw echo command on all: `ansible all -m raw -a "uname -a;get-host;echo 0"`
-- using unix only module: `ansible unix -m user -a "name=rwolters state=present"`
+- simple task via raw `ansible helium -m command -a "uname -a"`
+- simple task via module `ansible helium -m yum -a "name=httpd state=present" -s`
+- complex task via simple module `ansible unix -m user -a "name=rwolters state=present"`
 - where to get info about module parameters: `ansible-doc yum`, and `ansible-doc -s yum`
+- raw echo command on all: `ansible all -m raw -a "uname -a;get-host;echo 0"`
 - :white_check_mark: Ansible can contact multiple nodes at the same time
 - :white_check_mark: commands can already be distribution agnostic, even OS agnostic
 - :white_check_mark: use case: instant execution of single tasks across server landscapes
@@ -42,7 +46,9 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: missing yet: stacks of tasks, describing entire setups
 
 ## Playbooks
-- open ~/Gits/github/ansible-demo-apache-simple, apache-setup.yml
+- :question: How to process sets of tasks?
+- :question: 
+- open `~/Gits/github/ansible-demo-apache-simple`, `apache-setup.yml`
 - highlight hosts, become
 - show that tasks are stacked, are executed in order
 - go through tasks, highlight different modules
@@ -59,7 +65,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - Where to get them? Either manually defined, or from the machine.
 - show setup command for single host
 - show filter
-- highlight ansible_os_family
+- highlight `ansible_os_family`
 - show another, static source for variables: vars file
 - back to playbook
 - :white_check_mark: variables are a great way to gain more flexibility
@@ -75,7 +81,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - highlight the skipping due to conditionals
 - compare to service task without skips - no conditionals!
 - execute destroy playbook
-- show different playbook, oraclejdk-setup
+- show different playbook, `oraclejdk-setup`
 - highlight include statement
 - show rhel playbook, highlight generic approach
 - can distribute any kind of software, not only packaged
@@ -160,23 +166,29 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - use blocks or ignore_errors and conditionals
 - use debug msg to output variables
 - do rollback (or for example shutdown) if needed
-- -vvv on command line for ssh debugging
-- --step
-- --check
-- --diff
+- `-vvv` on command line for ssh debugging
+- `--step`
+- `--check`
+- `--diff`
 
 ### tags
 - tags vs conditionals
 - limiting to certain tags
-- --skip-tags
+- `--skip-tags`
 
 ### roles
 - go through concept of many roles, one profile
-- show apache role: ~/Gits/github/ansible-role-apache
+- show apache role: `~/Gits/github/ansible-role-apache`
 - discuss features of a role: tasks var defaults  handlers  meta  templates  tests
 
 ### CLI details
-- --list-tags
-- --list-hosts
-- --syntax-check
-- --list-tasks
+- `--list-tags` - show all available tags
+- `--list-hosts` - list all hosts which would be affected
+- `--syntax-check` - check if the syntax is right after all
+- `--list-tasks` - list all tasks
+
+### blocks
+- block, rescue, always
+- can be used to group sets of tasks
+- also error/exception handling
+- 
