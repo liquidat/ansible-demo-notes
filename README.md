@@ -221,3 +221,8 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - block, rescue, always
 - can be used to group sets of tasks
 - also error/exception handling
+
+### lookup
+- can look up generic data from generic sources
+- used like a variable
+- CSV, DB, DNS, etc.
