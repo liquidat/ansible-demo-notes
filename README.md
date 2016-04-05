@@ -11,18 +11,24 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - https://github.com/liquidat/ansible-demo-apache-simple
 
 ## concepts
-- Ansible is about automation - and thus about saving time
+- Ansible is automation - and thus about saving time
 - Ansible is simple - integrates seamless into existing infrastructure
 - Ansible is powerful - from system management to application development
 - Ansible is agentless - no further software needed
 - Ansible is engine: triggered via command line or via web interface/API
 - Ansible is language of "playbooks": set of "tasks", working steps which need to be run
 - Ansible is enterprise framework: Tower can deliver RBAC, single centralized place, user friendly GUI, shows results
+- Automation:
+  - executing tasks across multiple machines
+  - talking in the language of the domain
+  - executing multiple tasks in a row
+  - separating tasks from rights
+  - integration with surrounding infrastructure
 - tasks can be either generic cli commands
 - or simplified by parametrized modules
-- Ansible does not require a client, uses present operating system remote management technology
-- thus Ansible itself runs from any machine, like an admin laptop, configuring others
-- push mechanism, and login must work
+- no client needed: uses present operating system remote management technology
+- any machine: Ansible itself runs anywhere, like an admin laptop, configuring others
+- push!
 
 ## Questions :question:
 - What is your largest pain right now?
@@ -32,17 +38,20 @@ Technical people who want to see Ansible Tower in action with certain examples.
 ## Start: command line [skip if presentation or forknowledge]
 - :question: Do you often access multiple machines via command line?
 - :question: Do you know dancing/dstributed shell?
-- just the command line - like SSH on steroids
-- access machines via inventory: can be static file or executed script; think of existing CMDB or Satellite or anything
+- :question: Can you talk in the language of the problem, instead of generic commands?
+- example: on command line
+- target machines: identified via inventory
+- inventory: can be static file or executed script; think of existing CMDB or Satellite or anything
 - here: static
 - show inventory: clients, groups, additional options; highlight connection type
+- back to CLI
 - easiest way to contact: ping a machine, shows that is alive - and Ansible works!
 - ping Linux clients
-- ping windows machine: ping and win_ping
 - simple task via raw `ansible helium -m command -a "uname -a"`
 - this was direct command - now show parametrized modules
 - simple task via module `ansible helium -m yum -a "name=httpd state=present" -s`
 - complex task via simple module `ansible unix -m user -a "name=rwolters state=present"`
+- windows: hsa own modules, like win_ping
 - where to get info about module parameters: `ansible-doc yum`, and `ansible-doc -s yum`
 - raw echo command on all: `ansible all -m raw -a "uname -a;get-host;echo 0"`
 - :white_check_mark: Ansible can contact multiple nodes at the same time
