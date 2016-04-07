@@ -174,9 +174,10 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - tasks just describe what to do to get to some state - roles describe what needs to be there to have a state
 - more abstract; idea is to make them shareable: everyone needs a web server, a database
 - everything which describes a role: templates, tasks, variables, default values, etc.
+- example role to set up Apache: https://github.com/geerlingguy/ansible-role-apache
 - of course strongly depends on the qualities of the role writer
 - there are very abstract, high quality roles out there, even OS agnostic
-- ansible galaxy has community repository of roles
+- Ansible Galaxy has community repository of roles: https://galaxy.ansible.com/
 - use case: describe environments via re-usable roles
 - :white_check_mark: modular approach of assigning tasks to machines
 - :white_check_mark: still follows the Ansible way, still easy to write, adopt
@@ -212,11 +213,6 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - tags vs conditionals
 - limiting to certain tags
 - `--skip-tags`
-
-### roles
-- go through concept of many roles, one profile
-- show apache role: `~/Gits/github/ansible-role-apache`
-- discuss features of a role: tasks var defaults  handlers  meta  templates  tests
 
 ### CLI details
 - `--list-tags` - show all available tags
