@@ -1,12 +1,20 @@
 # Ansible Demo Notes
 
-## Aim
+## Background
+
+### Aim
 To show Ansible's features and possibilities including Tower.
 
-## Target audience
+### Target audience
 Technical people who want to see Ansible Tower in action with certain examples.
 
-## related gits
+### Legend of emoticons
+- :question: Question to ask the customers to enable interaction with customer
+- :wrench: Examples of usage for Operations
+- :notes: Examples of usage for Developers
+- :necktie: Examples of usage for Managers
+
+### related gits
 - https://github.com/liquidat/ansible-demo-oraclejdk
 - https://github.com/liquidat/ansible-demo-apache-simple
 
@@ -30,12 +38,14 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - any machine: Ansible itself runs anywhere, like an admin laptop, configuring others
 - push!
 
-## Questions :question:
+## Demo
+
+### Questions :question:
 - What is your largest pain right now?
 - What takes most manual work?
 - What is not integrated with each other right now but seems simple to connect?
 
-## Start: command line [skip if presentation or forknowledge]
+### Start: command line [skip if presentation or forknowledge]
 - :question: Do you often access multiple machines via command line?
 - :question: Do you know dancing/dstributed shell?
 - :question: Can you talk in the language of the problem, instead of generic commands?
@@ -61,15 +71,16 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: example: deploy OpenSSL update on all relevant machines right away
 - :white_check_mark: can save time already compared to plain ssh or even dsh
 - :white_check_mark: missing yet: stacks of tasks, describing entire setups
-- :clapper: Emergency update of all productive systems in controlled manner.
-- :clapper: Launch a statistics script on all database servers.
-- :clapper: Restart failed web daemon on development machines.
+- :wrench: Emergency openssh update of all productive systems in one go.
+- :wrench: Launch a statistics script on all database servers.
+- :notes: Restart failed web daemon on development machines.
+- :necktie: Gather state of all available machines, even if they are not centrally managed yet.
 
-## Playbooks
+### Playbooks
 - :question: Do you already write your own automation scripts?
 - :question: Take your average shell script - how long is it, how easy to read/understand?
 - :question: Can you use variables, from differenct sources?
-- open `~/Gits/github/ansible-demo-apache-simple`, `apache-setup.yml`
+- open https://github.com/liquidat/ansible-demo-apache-simple , `apache-setup.yml`
 - highlight become
 - show that tasks are stacked, are executed in order
 - go through tasks, highlight different modules
@@ -84,7 +95,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: can save even more time compared to the need to write scripts yourself
 - :white_check_mark: But what are variables, where do they come from?
 
-## interlude: variables [skip if no time]
+### interlude: variables [skip if no time]
 - :question: How to map small differences between setups?
 - :question: Aspects about a system - where to get them from?
 - :question: External information stores - how to incorporate them?
@@ -102,7 +113,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: variables from other machines can also be accessed
 - :white_check_mark: variables make playbooks much more re-usable, saves even more time
 
-## Playbooks
+### Playbooks
 - show different playbook, `oraclejdk-setup`
 - highlight include statement, they can be stacked as well
 - show rhel playbook, highlight generic approach
@@ -123,7 +134,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: missing yet: not central place, no tracking what was executed when and by whom
 - :clapper: Trigger build on Jenkins, get build, copy to staging, deactivate in load balancer, pause in monitoring, stop service, remove old version, deploy new version, start service, run tests; then unpause monitoring, active in load balancer, send mail to team
 
-## Tower, basics
+### Tower, basics
 - :question: Do you know which automated scripts are run right now in your environment? When, and by whom?
 - show interface
 - explain concepts of projects (playbooks or sets of playbooks), show imported playbooks and projects
@@ -147,7 +158,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :clapper: When user commits code, Jenkins runs build, afterwards Tower is called via REST and software is deployed.
 - :clapper: Users run network wide checks nightly from Tower, all can see results.
 
-## Tower, advanced
+### Tower, advanced
 - :question: How can you run powerful scripts by people who know when to run them, without providing them too many rights?
 - show setup module: organizations, teams, users
 - show idea of credentials: cannot be looked up, stored in AES 128 in database
