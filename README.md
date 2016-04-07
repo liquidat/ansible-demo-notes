@@ -184,6 +184,13 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: example: Wordpress server has multiple roles: database, web server, scripting language tuning
 - :white_check_mark: save time by reusing work of yourself and others
 
+### REST API
+- provides integration into other systems
+- supports RBAC
+- provides callback URLs for freshly deployed VMs to enable auto-provisioning
+- 100 % of all functions are covered
+- :clapper: Workflow-Management system needs to execute functions on sets of target systems, does this via REST API
+
 ### push vs pull
 - push vs pull essentially depends on the requirements
 - to keep in mind: many CM systems require a message bus these days...
