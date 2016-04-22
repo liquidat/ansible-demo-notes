@@ -132,7 +132,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: example: access LB, deactivate host, access monitoring, deactivate host, access host, stop service, update software, start service, check log files, activate host in monitoring, activate in LB
 - :white_check_mark: can save time by automating even complex interconnected tasks, regular or not
 - :white_check_mark: missing yet: not central place, no tracking what was executed when and by whom
-- :clapper: Trigger build on Jenkins, get build, copy to staging, deactivate in load balancer, pause in monitoring, stop service, remove old version, deploy new version, start service, run tests; then unpause monitoring, active in load balancer, send mail to team
+- :notes: :wrench: Trigger build on Jenkins, get build, copy to staging, deactivate in load balancer, pause in monitoring, stop service, remove old version, deploy new version, start service, run tests; then unpause monitoring, active in load balancer, send mail to team.
 
 ### Tower, basics
 - :question: Do you know which automated scripts are run right now in your environment? When, and by whom?
@@ -155,8 +155,8 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: can perform automation on its own (scheduling)
 - :white_check_mark: saves time via central, reusable place for all work
 - :white_check_mark: missing yet: Playbooks still require user to have rights on target machines; how to separate?
-- :clapper: When user commits code, Jenkins runs build, afterwards Tower is called via REST and software is deployed.
-- :clapper: Users run network wide checks nightly from Tower, all can see results.
+- :notes: When user commits code, Jenkins runs build, afterwards Tower is called via REST and software is deployed.
+- :necktie: automatically run network wide checks nightly from Tower, all can see results.
 
 ### Tower, advanced
 - :question: How can you run powerful scripts by people who know when to run them, without providing them too many rights?
@@ -176,8 +176,8 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: example: destroy and re-setup development environment: access build server, publish correct branch, access dev - machines, download app from build server, stop old app, remove, deploy new, start, run deployment tests
 - :white_check_mark: example: clean redis-cache once in a while
 - :white_check_mark: saves time, since self service of automation tasks now possible
-- :clapper: Team development executes cache clean script without having actual access rights to the target system.
-- :clapper: The facility manager executes the backup script weekly. ;)
+- :notes: Team development executes cache clean script without having actual access rights to the target system.
+- :wrench: The facility manager executes the backup script weekly. ;)
 
 ## Break out sessions / advanced topics
 
@@ -201,7 +201,10 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - supports RBAC
 - provides callback URLs for freshly deployed VMs to enable auto-provisioning
 - 100 % of all functions are covered
-- :clapper: Workflow-Management system needs to execute functions on sets of target systems, does this via REST API
+- :white_check_mark: integrate Tower with other components of IT environment
+- :white_check_mark: Tower can be the glue between various tools (REST API + can contact and call everything)
+- :necktie: Workflow-Management system needs to execute statistics script on database servers, does this via REST API call against Tower which has the necessary playbooks and user rights to access the DB servers and gather statistics
+- :developer: Jenkins sets up and destroys test environment during build; Tower has necessary playbooks and rights to bring up and down up2date test enviroments
 
 ### push vs pull
 - push vs pull essentially depends on the requirements
@@ -219,6 +222,8 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - `--step`
 - `--check`
 - `--diff`
+- `--start-at-task`
+- :wrench: Troubleshooting during development of playboooks
 
 ### tags
 - tags vs conditionals
