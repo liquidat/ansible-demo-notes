@@ -204,7 +204,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: integrate Tower with other components of IT environment
 - :white_check_mark: Tower can be the glue between various tools (REST API + can contact and call everything)
 - :necktie: Workflow-Management system needs to execute statistics script on database servers, does this via REST API call against Tower which has the necessary playbooks and user rights to access the DB servers and gather statistics
-- :developer: Jenkins sets up and destroys test environment during build; Tower has necessary playbooks and rights to bring up and down up2date test enviroments
+- :notes: Jenkins sets up and destroys test environment during build; Tower has necessary playbooks and rights to bring up and down up2date test enviroments
 
 ### push vs pull
 - push vs pull essentially depends on the requirements
