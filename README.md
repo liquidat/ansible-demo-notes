@@ -150,6 +150,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - show scheduling in job templates
 - also show facts of different machines via the inventory, highlight that this is difference for Enterprise
 - show execution of generic modules in inventory
+- show API: got to URL/api, pick organizations, got to bottom of page, create a new organization and show it
 - :white_check_mark: web interface; REST API
 - :white_check_mark: central place for all tasks, able to verify and document what was done and when
 - :white_check_mark: can perform automation on its own (scheduling)
