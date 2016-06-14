@@ -231,6 +231,11 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - limiting to certain tags
 - `--skip-tags`
 
+### Ansible console
+- `ansible-console`
+- ansible environment, can call all modules
+- features tab completion
+
 ### CLI details
 - `--list-tags` - show all available tags
 - `--list-hosts` - list all hosts which would be affected
