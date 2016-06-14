@@ -43,26 +43,28 @@ Technical people who want to see Ansible Tower in action with certain examples.
 ### Questions :question:
 - What is your largest pain right now?
 - What takes most manual work?
-- What is not integrated with each other right now but seems simple to connect?
+- What services in your business are not integrated with each other right now but seem simple to connect?
 
 ### Start: command line [skip if presentation or forknowledge]
 - :question: Do you often access multiple machines via command line?
 - :question: Do you know dancing/dstributed shell?
 - :question: Can you talk in the language of the problem, instead of generic commands?
-- example: on command line
-- target machines: identified via inventory
-- inventory: can be static file or executed script; think of existing CMDB or Satellite or anything
-- here: static
-- show inventory: clients, groups, additional options; highlight connection type
-- back to CLI
-- easiest way to contact: ping a machine, shows that is alive - and Ansible works!
-- ping Linux clients
-- simple task via raw `ansible helium -m command -a "uname -a"`
-- this was direct command - now show parametrized modules
-- simple task via module `ansible helium -m yum -a "name=httpd state=present" -s`
-- complex task via simple module `ansible unix -m user -a "name=rwolters state=present"`
-- windows: hsa own modules, like win_ping
-- where to get info about module parameters: `ansible-doc yum`, and `ansible-doc -s yum`
+- show inventory of a simple setup on command line
+- explain host entries, groups
+- inventory can be static file like example, or executed script; think of existing CMDB or Satellite or anything
+- on CLI: ping a machine, shows that is alive - and Ansible works!
+- show a simple task: `ansible helium -m command -a "uname -a"`
+- this was direct command - explain difference between simple commands and usage of modules
+  - simple commands are just command line action
+  - user needs to know the commmand line
+  - modules instead use language of the actual problem
+  - just fill the parameters, don't think about commands in the background
+- ansible with module user: `ansible helium -m user -a "name=abc state=present"`
+- this fails - explain the need for rights
+- shortly explain how Ansible actually connects: via SSH, with the actual SSH user
+- repeat task with sudo rights: `ansible helium -m user -a "name=abc state=present" -b`
+- where to get info about module parameters: `ansible-doc user`, and `ansible-doc -s user`
+- windows: has own modules, like win_ping
 - raw echo command on all: `ansible all -m raw -a "uname -a;get-host;echo 0"`
 - :white_check_mark: Ansible can contact multiple nodes at the same time
 - :white_check_mark: commands can already be distribution agnostic, even OS agnostic
