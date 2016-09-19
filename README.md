@@ -209,6 +209,11 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :necktie: Workflow-Management system needs to execute statistics script on database servers, does this via REST API call against Tower which has the necessary playbooks and user rights to access the DB servers and gather statistics
 - :notes: Jenkins sets up and destroys test environment during build; Tower has necessary playbooks and rights to bring up and down up2date test enviroments
 
+### activity stream
+- shows activity inside Tower
+- audit tool to follow up on changes of job templates, git updates, etc.
+- separation between work (and credentials) for machines and information about the central automation
+
 ### push vs pull
 - push vs pull essentially depends on the requirements
 - to keep in mind: many CM systems require a message bus these days...
