@@ -45,7 +45,7 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - What takes most manual work?
 - What services in your business are not integrated with each other right now but seem simple to connect?
 
-### Start: command line [skip if presentation or forknowledge]
+### Start: command line [skip if existing knowledge]
 - :question: Do you often access multiple machines via command line?
 - :question: Do you know dancing/dstributed shell?
 - :question: Can you talk in the language of the problem, instead of generic commands?
