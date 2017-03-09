@@ -14,10 +14,6 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :notes: Examples of usage for Developers
 - :necktie: Examples of usage for Managers
 
-### related gits
-- https://github.com/liquidat/ansible-demo-oraclejdk
-- https://github.com/liquidat/ansible-demo-apache-simple
-
 ## concepts
 - Ansible is automation - and thus about saving time
 - Ansible is simple - integrates seamless into existing infrastructure
@@ -53,19 +49,19 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - explain host entries, groups
 - inventory can be static file like example, or executed script; think of existing CMDB or Satellite or anything
 - on CLI: ping a machine, shows that is alive - and Ansible works!
-- show a simple task: `ansible helium -m command -a "uname -a"`
+- explain that SSH is used: the current user connects with current rights
+- show a simple task: `ansible host -m command -a "uname -a"`
 - this was direct command - explain difference between simple commands and usage of modules
   - simple commands are just command line action
   - user needs to know the commmand line
   - modules instead use language of the actual problem
   - just fill the parameters, don't think about commands in the background
-- ansible with module user: `ansible helium -m user -a "name=abc state=present"`
+- ansible with module user: `ansible host -m user -a "name=abc state=present"`
 - this fails - explain the need for rights
 - shortly explain how Ansible actually connects: via SSH, with the actual SSH user
-- repeat task with sudo rights: `ansible helium -m user -a "name=abc state=present" -b`
+- repeat task with sudo rights: `ansible host -m user -a "name=abc state=present" -b`
 - where to get info about module parameters: `ansible-doc user`, and `ansible-doc -s user`
 - windows: has own modules, like win_ping
-- raw echo command on all: `ansible all -m raw -a "uname -a;get-host;echo 0"`
 - :white_check_mark: Ansible can contact multiple nodes at the same time
 - :white_check_mark: commands can already be distribution agnostic, even OS agnostic
 - :white_check_mark: use case: instant execution of single tasks across server landscapes
@@ -82,14 +78,15 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :question: Do you already write your own automation scripts?
 - :question: Take your average shell script - how long is it, how easy to read/understand?
 - :question: Can you use variables, from differenct sources?
-- open https://github.com/liquidat/ansible-demo-apache-simple , `apache-setup.yml`
-- highlight become
+- open simple playbook, for example https://github.com/liquidat/ansible-demo-apache-simple , `apache-setup.yml`
+- highlight become, explain when and that it is necessary (sudo, others are possible)
 - show that tasks are stacked, are executed in order
 - go through tasks, highlight different modules
 - mention: tasks can be serialized to be only applied to sets of a specific group (load balancers, etc.)
+- show another one, for example: https://github.com/ansible/ansible-examples/blob/master/wordpress-nginx/roles/mysql/tasks/main.yml
 - highlight conditionals, mention variables
-- execute playbook
-- highlight the skipping due to conditionals
+- highlight loops
+- execute a playbook, show results on command line
 - :white_check_mark: easy to read
 - :white_check_mark: tasks can be stacked
 - :white_check_mark: playbooks script automation
@@ -115,16 +112,14 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - :white_check_mark: variables from other machines can also be accessed
 - :white_check_mark: variables make playbooks much more re-usable, saves even more time
 
-### Playbooks
-- show different playbook, `oraclejdk-setup`
+### Playbooks, part 2
+- take another example, like: https://github.com/ansible/ansible-examples/blob/master/lamp_simple_rhel7/roles/web/tasks/main.yml
 - highlight include statement, they can be stacked as well
-- show rhel playbook, highlight generic approach
-- can distribute any kind of software, not only packaged
-- show windows playbook, highlight raw installer with options
-- show windows destroy - highlight scripting and template
-- head to logs - show log entries, each module is executed once
-- show handlers, explain links/connections with tasks
-- verify correct playbook with ansible-lint
+- explain handlers, for example in https://github.com/ansible/ansible-examples/blob/master/wordpress-nginx/roles/mysql/tasks/main.yml , explain links/connections with tasks
+- explain concept of blocks like in Python; example in: http://docs.ansible.com/ansible/playbooks_blocks.html
+- three different kinds: block, rescue, always
+- can be used to group sets of tasks
+- also error/exception handling
 - :white_check_mark: multi OS, multi host, multi distribution
 - :white_check_mark: tasks can not only be stacked, but also grouped
 - :white_check_mark: in combination with variables very flexible
@@ -138,38 +133,41 @@ Technical people who want to see Ansible Tower in action with certain examples.
 
 ### Tower, basics
 - :question: Do you know which automated scripts are run right now in your environment? When, and by whom?
-- show interface
-- explain concepts of projects (playbooks or sets of playbooks), show imported playbooks and projects
-- explain inventories, show imported inventories; can be groups of groups; can also be connected to online services or generic scripts
-- job templates assign actual playbooks to specific inventories: ready to be executed when needed
-- mention surveys and variable requests
-- when executed, a job comes up, the job has the results
+- show main interface
+- explain concepts of projects (playbooks or sets of playbooks), show imported projects and show Git as example
+- highlight possibility of importing different branches, and also commit ID
+- explain inventories, show imported inventories; can be groups of groups; each group can be manually entered or be connected to online services or generic scripts
+- explain that one node can be in multiple groups, even on the same level; no need for fixed tree structure
+- job templates: they assign actual playbooks to specific inventories, ready to be executed when needed
+- show job template, discuss also the possibility to on the fly change verbosity or "check" mode
+- show surveys, that they can query data which are only in the knowledge of the executer
+- notifications: can be used to inform via mail or web hook or even IRC when a job was executed - or only when it failed
+- workflow manager: multiple jobs can be connected to each other, with conditions of fail or success
+- show the workflow editor, it is a UI!
+- connect some templates - even for different results
+- jobs: when a job template is executed, a job comes up, the job has the results of the execution
 - execute jobs, show results
-- highlight multiple plays in one job, show executing information
-- click through plays, highlight changing details
-- show cli output
-- back to list of jobs, possibility of tracking
-- show scheduling in job templates
-- also show facts of different machines via the inventory, highlight that this is difference for Enterprise
-- show execution of generic modules in inventory
+- highlight additional information on left side
+- click through play on the right side, show detail information pop up when clicked on task
+- job execution cron-like: show scheduling in job templates
 - show API: got to URL/api, pick organizations, got to bottom of page, create a new organization and show it
 - :white_check_mark: web interface; REST API
 - :white_check_mark: central place for all tasks, able to verify and document what was done and when
 - :white_check_mark: can perform automation on its own (scheduling)
+- :white_check_mark: different playbooks can be stitched together
 - :white_check_mark: saves time via central, reusable place for all work
 - :white_check_mark: missing yet: Playbooks still require user to have rights on target machines; how to separate?
 - :notes: When user commits code, Jenkins runs build, afterwards Tower is called via REST and software is deployed.
 - :necktie: automatically run network wide checks nightly from Tower, all can see results.
 
-### Tower, advanced
+
+### Tower, RBAC
 - :question: How can you run powerful scripts by people who know when to run them, without providing them too many rights?
 - show setup module: organizations, teams, users
 - show idea of credentials: cannot be looked up, stored in AES 128 in database
-- highlight users: dduck and mmaus, belonging to different groups
-- show various rights across teams: on inventories, on tasks, with and without module execution
-- login as dduck and mmaus - compare to admin login
-- highlight that credentials cannot be looked up
-- execute task as dduck - show results
+- can be different even for different templates (for example one as check, the other as execute)
+- highlight or create teams and users, give permissions to a template as executor
+- login as user - compare to admin login
 - show portal mode
 - mention dry runs
 - :white_check_mark: separation of rights on machines and rights to execute playbooks is now given
@@ -184,7 +182,17 @@ Technical people who want to see Ansible Tower in action with certain examples.
 
 ## Break out sessions / advanced topics
 
-### roles
+### Callback URLs in Tower
+- go to job templates, show callback URL
+- explain how it can be called by freshly provisioned hosts
+- requires dynamic inventory, explain why
+
+### System Tracking
+- go to inventory, show system tracking
+- data are stored with each run
+- can be compared over time
+
+### Ansible roles
 - tasks just describe what to do to get to some state - roles describe what needs to be there to have a state
 - more abstract; idea is to make them shareable: everyone needs a web server, a database
 - everything which describes a role: templates, tasks, variables, default values, etc.
@@ -243,16 +251,14 @@ Technical people who want to see Ansible Tower in action with certain examples.
 - ansible environment, can call all modules
 - features tab completion
 
+### ansible-lint
+- can be used to verify playbooks
+
 ### CLI details
 - `--list-tags` - show all available tags
 - `--list-hosts` - list all hosts which would be affected
 - `--syntax-check` - check if the syntax is right after all
 - `--list-tasks` - list all tasks
-
-### blocks
-- block, rescue, always
-- can be used to group sets of tasks
-- also error/exception handling
 
 ### lookup
 - can look up generic data from generic sources
