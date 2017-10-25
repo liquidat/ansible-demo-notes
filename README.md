@@ -1,3 +1,6 @@
+**DEPRECATED**
+This repository is now deprecated. Please see https://github.com/goetzrieger/ansible-labs for much better demo and training guidelines.
+
 # Ansible Demo Notes
 
 ## Background
